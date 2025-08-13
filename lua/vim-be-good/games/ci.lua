@@ -99,10 +99,10 @@ function CiRound:render()
 
     if self.config.braces then
         lines[insertionIndex] = "if (" .. self.config.randomWord .. ") {"
-        lines[insertionIndex + 2] = "    if (" .. GameUtils.getRandomWord() .. ") { "
-        lines[insertionIndex + 3] = "        " .. GameUtils.getRandomWord()
-        lines[insertionIndex + 4] = "    }";
-        lines[insertionIndex + 5] = "}";
+        lines[insertionIndex + 1] = "    if (" .. GameUtils.getRandomWord() .. ") { "
+        lines[insertionIndex + 2] = "        " .. GameUtils.getRandomWord()
+        lines[insertionIndex + 3] = "    }";
+        lines[insertionIndex + 4] = "}";
     elseif self.config.square then
         lines[insertionIndex] = "[";
         lines[insertionIndex + 1] = "    " .. GameUtils.getRandomWord() .. ","
@@ -112,8 +112,8 @@ function CiRound:render()
         lines[insertionIndex + 5] = "]";
     elseif self.config.parenthesis then
         lines[insertionIndex] = "if (" .. self.config.randomWord .. ") then"
-        lines[insertionIndex + 3] = "    " .. GameUtils.getRandomWord()
-        lines[insertionIndex + 5] = "end"
+        lines[insertionIndex + 1] = "    " .. GameUtils.getRandomWord()
+        lines[insertionIndex + 2] = "end"
     end
 
     return lines, cursorIdx
