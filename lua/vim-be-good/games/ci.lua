@@ -69,7 +69,7 @@ function CiRound:checkForWin()
     winner = false
     if self.config.braces then
         winner = lowercased == "if (" .. self.config.randomWord .. ") {bar}"
-    elseif self.config.squre then
+    elseif self.config.square then
         winner = lowercased == "[bar]"
     end
 
