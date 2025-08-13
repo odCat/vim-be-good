@@ -69,7 +69,7 @@ function CiRound:checkForWin()
     winner = false
     if self.config.braces then
         winner = lowercased == "if (" .. self.config.randomWord .. ") {bar}"
-    else
+    elseif self.config.squre then
         winner = lowercased == "[bar]"
     end
 
@@ -99,7 +99,7 @@ function CiRound:render()
         lines[insertionIndex + 3] = "        " .. GameUtils.getRandomWord()
         lines[insertionIndex + 4] = "    }";
         lines[insertionIndex + 5] = "}";
-    else
+    elseif self.config.square then
         lines[insertionIndex] = "[";
         lines[insertionIndex + 1] = "    " .. GameUtils.getRandomWord() .. ","
         lines[insertionIndex + 2] = "    " .. GameUtils.getRandomWord() .. ","
