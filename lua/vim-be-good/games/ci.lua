@@ -39,7 +39,7 @@ end
 function CiRound:getConfig()
     log.info("getConfig", self.difficulty, GameUtils.difficultyToTime[self.difficulty])
 
-    local function selectGameType()
+    local function selectSurroundChar()
         local num = math.random()
         if num < 0.5 then
             self.config.braces = true
@@ -50,11 +50,10 @@ function CiRound:getConfig()
 
     self.config = {
         roundTime = GameUtils.difficultyToTime[self.difficulty],
-        -- ifStatement = math.random() > 0.5,
         randomWord = GameUtils.getRandomWord(),
     }
 
-    selectGameType()
+    selectSurroundChar()
 
     return self.config
 end
