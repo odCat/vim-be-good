@@ -38,11 +38,23 @@ end
 
 function CiRound:getConfig()
     log.info("getConfig", self.difficulty, GameUtils.difficultyToTime[self.difficulty])
+
+    local function selectGameType()
+        local num = math.random()
+        if num < 0.5 then
+            self.config.braces = true
+        else
+            self.config.square = true
+        end
+    end
+
     self.config = {
         roundTime = GameUtils.difficultyToTime[self.difficulty],
-        ifStatement = math.random() > 0.5,
+        -- ifStatement = math.random() > 0.5,
         randomWord = GameUtils.getRandomWord(),
     }
+
+    selectGameType()
 
     return self.config
 end
@@ -56,7 +68,7 @@ function CiRound:checkForWin()
     log.info("CiRound:checkForWin", vim.inspect(lowercased))
 
     winner = false
-    if self.config.ifStatement then
+    if self.config.braces then
         winner = lowercased == "if (" .. self.config.randomWord .. ") {bar}"
     else
         winner = lowercased == "[bar]"
@@ -82,7 +94,7 @@ function CiRound:render()
         cursorIdx = math.random(math.floor(linesAfterInstructions / 2), linesAfterInstructions)
     end
 
-    if self.config.ifStatement then
+    if self.config.braces then
         lines[insertionIndex] = "if (" .. self.config.randomWord .. ") {"
         lines[insertionIndex + 2] = "    if (" .. GameUtils.getRandomWord() .. ") { "
         lines[insertionIndex + 3] = "        " .. GameUtils.getRandomWord()
