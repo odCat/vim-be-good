@@ -113,7 +113,7 @@ function CiRound:render()
     elseif self.config.parenthesis then
         lines[insertionIndex] = "if (" .. self.config.randomWord .. ") then"
         lines[insertionIndex + 3] = "    " .. GameUtils.getRandomWord()
-        lines[insertionIndex + 5] = "end
+        lines[insertionIndex + 5] = "end"
     end
 
     return lines, cursorIdx
