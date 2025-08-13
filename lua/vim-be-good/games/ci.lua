@@ -66,7 +66,7 @@ function CiRound:checkForWin()
 
     log.info("CiRound:checkForWin", vim.inspect(lowercased))
 
-    winner = false
+    local winner = false
     if self.config.braces then
         winner = lowercased == "if (" .. self.config.randomWord .. ") {bar}"
     elseif self.config.square then
