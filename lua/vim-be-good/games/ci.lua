@@ -78,8 +78,8 @@ function CiRound:checkForWin()
     elseif self.config.parenthesis then
         winner = lowercased == "function foo(bar)" .. self.config.randomWord .. "end"
     elseif self.config.quotation then
-        winner = lowercased == "do" .. self.config.randomWord .. "(\"bar\")"
-                                .. self.config.randomWord .. "end"
+        local expected = "doprint(\"bar\")" .. self.config.randomWord .. "end"
+        winner = lowercased == expected
     end
 
     if winner then
@@ -121,10 +121,9 @@ function CiRound:render()
         lines[insertionIndex + 2] = "end"
     elseif self.config.quotation then
         lines[insertionIndex] = "do"
-        lines[insertionIndex + 1] = "    " .. self.config.randomWord
-        lines[insertionIndex + 2] = "    print(" .. GameUtils.getRandomWord() .. ")"
-        lines[insertionIndex + 3] = "    " .. self.config.randomWord
-        lines[insertionIndex + 4] = "end"
+        lines[insertionIndex + 1] = "    print(\"" .. GameUtils.getRandomWord() .. "\")"
+        lines[insertionIndex + 2] = "    " .. self.config.randomWord
+        lines[insertionIndex + 3] = "end"
     end
 
     return lines, cursorIdx
