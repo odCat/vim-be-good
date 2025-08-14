@@ -40,13 +40,15 @@ function CiRound:getConfig()
     log.info("getConfig", self.difficulty, GameUtils.difficultyToTime[self.difficulty])
 
     local function selectSurroundChar()
-        local rand = math.random(3)
+        local rand = math.random(4)
         if rand == 1 then
             self.config.braces = true
         elseif rand == 2 then
             self.config.square = true
         elseif rand == 3 then
             self.config.parenthesis = true
+        elseif rand == 4 then
+            self.config.quotation = true
         end
     end
 
@@ -75,6 +77,9 @@ function CiRound:checkForWin()
         winner = lowercased == "[bar]"
     elseif self.config.parenthesis then
         winner = lowercased == "function foo(bar)" .. self.config.randomWord .. "end"
+    elseif self.config.quotation then
+        winner = lowercased == "do" .. self.config.randomWord .. "(\"bar\")"
+                                .. self.config.randomWord .. "end"
     end
 
     if winner then
@@ -114,6 +119,12 @@ function CiRound:render()
         lines[insertionIndex] = "function foo(" .. GameUtils.getRandomWord() .. ")"
         lines[insertionIndex + 1] = "    " .. self.config.randomWord
         lines[insertionIndex + 2] = "end"
+    elseif self.config.quotation then
+        lines[insertionIndex] = "do"
+        lines[insertionIndex + 1] = "    " .. self.config.randomWord
+        lines[insertionIndex + 2] = "    print(" .. GameUtils.getRandomWord() .. ")"
+        lines[insertionIndex + 3] = "    " .. self.config.randomWord
+        lines[insertionIndex + 4] = "end"
     end
 
     return lines, cursorIdx
