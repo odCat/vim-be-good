@@ -82,7 +82,7 @@ function CiRound:checkForWin()
     elseif self.config.quotation then
         local expected = "doprint(\"bar\")" .. self.config.randomWord .. "end"
         winner = lowercased == expected
-    elseif self.config.quotation then
+    elseif self.config.apostrophe then
         local expected = "doprint('bar')" .. self.config.randomWord .. "end"
         winner = lowercased == expected
     end
