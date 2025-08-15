@@ -27,10 +27,9 @@ function Words:getConfig()
 
     local one = GameUtils.getRandomWord()
     local two = GameUtils.getRandomWord()
-    while(two == one)
-	do
+    while(two == one) do
 		two = GameUtils.getRandomWord()
-	end 
+	end
     local round = { }
     local expected = { }
     local idx = math.ceil(math.random() * 6);
