@@ -6,6 +6,7 @@ local WordRound = require("vim-be-good.games.words");
 local CiRound = require("vim-be-good.games.ci");
 local HjklRound = require("vim-be-good.games.hjkl");
 local WhackAMoleRound = require("vim-be-good.games.whackamole");
+local Surround = require("vim-be-good.games.surround")
 local Snake = require("vim-be-good.games.snake");
 local log = require("vim-be-good.log");
 local statistics = require("vim-be-good.statistics");
@@ -42,6 +43,10 @@ local games = {
 
     whackamole = function(difficulty, window)
         return WhackAMoleRound:new(difficulty, window)
+    end,
+
+    surround = function(difficulty, window)
+        return Surround:new(difficulty, window)
     end,
 
     snake = function(difficulty, window)

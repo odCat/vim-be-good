@@ -14,6 +14,7 @@ local games = {
     "hjkl",
     "whackamole",
     -- "snake",
+    "surround",
     "random",
 }
 
