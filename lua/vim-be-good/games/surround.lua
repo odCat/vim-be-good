@@ -5,14 +5,17 @@ local gameLineCount = 5
 local instructions = {
     "Surround the SURROUND word with double quotes.",
     "If the word is surrounded already, change the double quotes to apostrophes.",
-    "Similar, change parenthesis with square brackets.",
+    "Similar, change parenthesis with square braces and square to curly braces.",
     "",
     "e.g.",
+    "",
     "tar bar SURROUND car   ->   tar bar \"SURROUND\" car",
     "",
     "tar bar \"SURROUND\" car   ->   tar bar 'SURROUND' car",
     "",
     "tar bar (SURROUND) car   ->   tar bar [SURROUND] car",
+    "",
+    "tar bar [SURROUND] car   ->   tar bar {SURROUND} car",
     "",
     "----------------------------------------------------------------------",
     "",
@@ -48,13 +51,15 @@ function SurroundRound:getConfig()
     self.config = {}
 
     local function selectMode()
-        local rand = math.random(3)
-        if rand == 1 then
+        local rand = math.random(5)
+        if rand == 1 or rand == 2 then
             self.config.quote = true
-        elseif rand == 2 then
-            self.config.quote2apostrophe = true
         elseif rand == 3 then
+            self.config.quote2apostrophe = true
+        elseif rand == 4 then
             self.config.parenthesis2square = true
+        elseif rand == 5 then
+            self.config.square2braces = true
         end
     end
 
@@ -81,6 +86,10 @@ function SurroundRound:getConfig()
         table.insert(words, surroundPosition, "(SURROUND)")
         expected = table.concat(words, " ")
         expected = string.gsub(expected, "%(SURROUND%)", "[SURROUND]")
+    elseif self.config.square2braces then
+        table.insert(words, surroundPosition, "[SURROUND]")
+        expected = table.concat(words, " ")
+        expected = string.gsub(expected, "[SURROUND]", "{SURROUND}")
     end
 
     self.config.roundTime = GameUtils.difficultyToTime[self.difficulty]
