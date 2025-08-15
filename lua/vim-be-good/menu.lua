@@ -1,7 +1,7 @@
 local log = require("vim-be-good.log")
 local bind = require("vim-be-good.bind")
 local types = require("vim-be-good.types")
-local createEmpty = require("vim-be-good.game-utils").createEmpty
+
 
 local Menu = {}
 
