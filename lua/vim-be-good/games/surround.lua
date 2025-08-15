@@ -33,7 +33,7 @@ function SurroundRound:name()
 end
 
 
-function SurroundRound:getInstruction()
+function SurroundRound:getInstructions()
     return instructions
 end
 
@@ -52,14 +52,15 @@ function SurroundRound:getConfig()
     }
 
     local surroundPosition = math.random(5)
-    table.insert(words, surroundPosition "SURROUND")
-    local expected = table.concat(self.config.words, " ")
+    table.insert(words, surroundPosition, "SURROUND")
+    local expected = table.concat(words, " ")
+    expected = string.gsub(expected, "SURROUND", "\"SURROUND\"")
 
 
     self.config = {
         roundTime = GameUtils.difficultyToTime[self.difficulty],
         words = words,
-        expected,
+        expected = expected,
     }
 
     -- selectMode()
@@ -68,31 +69,30 @@ function SurroundRound:getConfig()
 end
 
 
+function SurroundRound:render()
+    local lines = GameUtils.createEmpty(gameLineCount)
+    local cursorIdx = 5
+
+    lines[5] = table.concat(self.config.words, " ")
+
+    return lines, cursorIdx
+end
+
+
 function SurroundRound:checkForWin()
     local lines = self.window.buffer:getGameLines()
     local trimmed = GameUtils.trimLines(lines)
     local concatenated = table.concat(GameUtils.filterEmptyLines(trimmed), "")
-    local lowercased = concatenated:lower()
 
-    log.info("CiRound:checkForWin", vim.inspect(lowercased))
+    log.info("Surround:checkForWin", vim.inspect(concatenated))
 
-    local winner = lowercased == self.config.expected
+    local winner = concatenated == self.config.expected
 
     if winner then
         vim.cmd("stopinsert")
     end
 
     return winner
-end
-
-
-function SurroundRound:render()
-    local lines = GameUtils.createEmpty(gameLineCount)
-    local cursorIdx = 5
-
-    lines[5] = self.config.expected
-
-    return lines, cursorIdx
 end
 
 
