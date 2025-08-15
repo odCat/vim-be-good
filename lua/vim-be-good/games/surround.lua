@@ -89,7 +89,7 @@ function SurroundRound:getConfig()
     elseif self.config.square2braces then
         table.insert(words, surroundPosition, "[SURROUND]")
         expected = table.concat(words, " ")
-        expected = string.gsub(expected, "[SURROUND]", "{SURROUND}")
+        expected = string.gsub(expected, "%[SURROUND%]", "{SURROUND}")
     end
 
     self.config.roundTime = GameUtils.difficultyToTime[self.difficulty]
