@@ -41,8 +41,18 @@ end
 function SurroundRound:getConfig()
     log.info("getConfig", self.difficulty, GameUtils.difficultyToTime[self.difficulty])
 
-    -- local function selectMode()
-    -- end
+    self.config = {}
+
+    local function selectMode()
+        local rand = math.random(2)
+        if rand == 1 then
+            self.config.quote = true
+        elseif rand == 2 then
+            self.config.quote2apostrophe = true
+        end
+    end
+
+    selectMode()
 
     local words = {
         GameUtils.getRandomWord(),
@@ -52,18 +62,20 @@ function SurroundRound:getConfig()
     }
 
     local surroundPosition = math.random(5)
-    table.insert(words, surroundPosition, "SURROUND")
-    local expected = table.concat(words, " ")
-    expected = string.gsub(expected, "SURROUND", "\"SURROUND\"")
+    local expected
+    if self.config.quote then
+        table.insert(words, surroundPosition, "SURROUND")
+        expected = table.concat(words, " ")
+        expected = string.gsub(expected, "SURROUND", "\"SURROUND\"")
+    elseif self.config.quote2apostrophe then
+        table.insert(words, surroundPosition, "\"SURROUND\"")
+        expected = table.concat(words, " ")
+        expected = string.gsub(expected, "\"SURROUND\"", "'SURROUND'")
+    end
 
-
-    self.config = {
-        roundTime = GameUtils.difficultyToTime[self.difficulty],
-        words = words,
-        expected = expected,
-    }
-
-    -- selectMode()
+    self.config.roundTime = GameUtils.difficultyToTime[self.difficulty]
+    self.config.words = words
+    self.config.expected = expected
 
     return self.config
 end
