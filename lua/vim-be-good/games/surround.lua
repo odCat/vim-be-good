@@ -51,14 +51,16 @@ function SurroundRound:getConfig()
     self.config = {}
 
     local function selectMode()
-        local rand = math.random(5)
-        if rand == 1 or rand == 2 then
+        local rand = math.random(7)
+        if rand == 1 or rand == 2 or rand ==3 then
             self.config.quote = true
-        elseif rand == 3 then
-            self.config.quote2apostrophe = true
         elseif rand == 4 then
-            self.config.parenthesis2square = true
+            self.config.quote2apostrophe = true
         elseif rand == 5 then
+            self.config.apostrophe2quote = true
+        elseif rand == 6 then
+            self.config.parenthesis2square = true
+        elseif rand == 7 then
             self.config.square2braces = true
         end
     end
@@ -82,6 +84,10 @@ function SurroundRound:getConfig()
         table.insert(words, surroundPosition, "\"SURROUND\"")
         expected = table.concat(words, " ")
         expected = string.gsub(expected, "\"SURROUND\"", "'SURROUND'")
+    elseif self.config.apostrophe2quote then
+        table.insert(words, surroundPosition, "'SURROUND'")
+        expected = table.concat(words, " ")
+        expected = string.gsub(expected, "'SURROUND'", "\"SURROUND\"")
     elseif self.config.parenthesis2square then
         table.insert(words, surroundPosition, "(SURROUND)")
         expected = table.concat(words, " ")
