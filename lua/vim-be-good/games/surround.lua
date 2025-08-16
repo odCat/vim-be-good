@@ -1,6 +1,6 @@
 local GameUtils = require("vim-be-good.game-utils")
 local log = require("vim-be-good.log")
-local gameLineCount = 5
+local gameLineCount = 9
 
 local instructions = {
     "Surround the SURROUND word with double quotes.",
@@ -108,11 +108,20 @@ end
 
 function SurroundRound:render()
     local lines = GameUtils.createEmpty(gameLineCount)
-    local cursorLine = 5
-
     lines[5] = table.concat(self.config.words, " ")
 
-    return lines, cursorLine
+    -- gives a slightly higher change to spawn on the line to be changed
+    local cursorLine = math.random(gameLineCount + math.ceil(gameLineCount*0.25))
+    if cursorLine > gameLineCount then
+        cursorLine = 5
+    end
+
+    local cursorCol = nil
+    if cursorLine == 5 then
+        cursorCol = math.random(0, #lines[5])
+    end
+
+    return lines, cursorLine, cursorCol
 end
 
 
