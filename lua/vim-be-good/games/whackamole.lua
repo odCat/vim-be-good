@@ -74,9 +74,9 @@ function WhackAMoleRound:render()
 
     self.__winLine = winSentence
 
-    local cursorIdx =  1
+    local cursorLine =  1
 
-    return lines, cursorIdx
+    return lines, cursorLine
 end
 
 function WhackAMoleRound:name()

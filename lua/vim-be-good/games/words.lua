@@ -68,11 +68,11 @@ end
 
 function Words:render()
     local lines = GameUtils.createEmpty(gameLineCount)
-    local cursorIdx = 5
+    local cursorLine = 5
 
     lines[5] = table.concat(self.config.words, " ")
 
-    return lines, cursorIdx
+    return lines, cursorLine
 end
 
 function Words:name()

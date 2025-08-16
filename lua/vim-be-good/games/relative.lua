@@ -61,16 +61,16 @@ function RelativeRound:render()
     local deleteMeIdx = math.random(1, 20)
     local goHigh = deleteMeIdx < 17 and math.random() > 0.5
 
-    local cursorIdx
+    local cursorLine
     if goHigh then
-        cursorIdx = math.random(deleteMeIdx + 1, 20)
+        cursorLine = math.random(deleteMeIdx + 1, 20)
     else
-        cursorIdx = math.random(1, deleteMeIdx - 1)
+        cursorLine = math.random(1, deleteMeIdx - 1)
     end
 
     lines[deleteMeIdx] = " DELETE_ME"
 
-    return lines, cursorIdx
+    return lines, cursorLine
 end
 
 function RelativeRound:name()

@@ -100,11 +100,11 @@ function CiRound:render()
     local insertionIndex = GameUtils.getRandomInsertionLocation(gameLineCount, 6, #instructions)
     local goHigh = insertionIndex < gameLineCount / 2 and math.random() > 0.5
 
-    local cursorIdx
+    local cursorLine
     if goHigh then
-        cursorIdx = math.random(math.floor(linesAfterInstructions / 2))
+        cursorLine = math.random(math.floor(linesAfterInstructions / 2))
     else
-        cursorIdx = math.random(math.floor(linesAfterInstructions / 2), linesAfterInstructions)
+        cursorLine = math.random(math.floor(linesAfterInstructions / 2), linesAfterInstructions)
     end
 
     if self.config.braces then
@@ -136,7 +136,7 @@ function CiRound:render()
         lines[insertionIndex + 3] = "end"
     end
 
-    return lines, cursorIdx
+    return lines, cursorLine
 end
 
 function CiRound:name()
