@@ -97,7 +97,8 @@ end
 function CiRound:render()
     local lines = GameUtils.createEmpty(gameLineCount)
     local linesAfterInstructions = gameLineCount - #instructions
-    local insertionIndex = GameUtils.getRandomInsertionLocation(gameLineCount, 6, #instructions)
+    local maxLines = 6 -- the square exercise has 6 lines, see below
+    local insertionIndex = GameUtils.getRandomInsertionLocation(gameLineCount, maxLines)
     local goHigh = insertionIndex < gameLineCount / 2 and math.random() > 0.5
 
     local cursorLine
