@@ -96,16 +96,15 @@ end
 
 function CiRound:render()
     local lines = GameUtils.createEmpty(gameLineCount)
-    local linesAfterInstructions = gameLineCount - #instructions
-    local maxLines = 6 -- the square exercise has 6 lines, see below
+    local maxLines = 6 -- the square brackets exercise has 6 lines, see below
     local insertionIndex = GameUtils.getRandomInsertionLocation(gameLineCount, maxLines)
-    local goHigh = insertionIndex < gameLineCount / 2 and math.random() > 0.5
+    local goHigh = insertionIndex < gameLineCount / 2 or math.random() > 0.5
 
     local cursorLine
     if goHigh then
-        cursorLine = math.random(math.floor(linesAfterInstructions / 2))
+        cursorLine = math.random(math.floor(gameLineCount / 2))
     else
-        cursorLine = math.random(math.floor(linesAfterInstructions / 2), linesAfterInstructions)
+        cursorLine = math.random(math.floor(gameLineCount / 2), gameLineCount)
     end
 
     if self.config.braces then
