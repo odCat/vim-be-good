@@ -115,16 +115,16 @@ function Buffer:setInstructions(lines)
 end
 
 function Buffer:clearGameLines()
-    local startOffset = table.getn(self.instructions) + 1
-    local len = table.getn(self.lastRendered)
+    local startOffset = #self.instructions + 1
+    local len = #self.lastRendered
 
     vim.api.nvim_buf_set_lines(
         self.bufh, startOffset, startOffset + len, false, createEmpty(len))
 end
 
 function Buffer:getGameLines()
-    local startOffset = table.getn(self.instructions) + 1
-    local len = table.getn(self.lastRendered)
+    local startOffset = #self.instructions + 1
+    local len = #self.lastRendered
 
     local lines = vim.api.nvim_buf_get_lines(
         self.bufh, startOffset, startOffset + len, false)
