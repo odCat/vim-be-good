@@ -43,8 +43,8 @@ function Menu:new(window, onResults)
         buffer = window.buffer,
         onResults = onResults,
 
-        -- Default difficulty: easy
-        difficulty = types.difficulty[2],
+        -- Default difficulty: noob
+        difficulty = types.difficulty[1],
 
         -- Default game: words
         game = types.games[1],
