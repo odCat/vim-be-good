@@ -70,9 +70,6 @@ function Find:getConfig()
                                 .. selectSpecialCharacter() ..
                             string.sub(tempWords[wordToInsertInto], positionToInsertInto)
 
-    log.info("getConfig: words " .. table.concat(words, " "))
-    log.info("getConfig: tempWords " .. table.concat(tempWords, " "))
-
     local expected = table.concat(tempWords, " ")
 
     self.config = {
@@ -90,11 +87,6 @@ function Find:checkForWin()
     local trimmed = GameUtils.trimLines(lines)
     local concatenated = table.concat(GameUtils.filterEmptyLines(trimmed), "")
     local lowercased = concatenated:lower()
-
-    log.info("getConfig: words      " .. table.concat(self.config.words, " "))
-    log.info("getConfig: expected   " .. self.config.expected)
-    log.info("getConfig: lowercased " .. lowercased)
-    log.info("getConfig: Win%? " .. lowercased == self.config.expected)
 
     local winner = lowercased == self.config.expected
 
