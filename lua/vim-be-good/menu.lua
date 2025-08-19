@@ -46,8 +46,8 @@ function Menu:new(window, onResults)
         -- Default difficulty: noob
         difficulty = types.difficulty[1],
 
-        -- Default game: words
-        game = types.games[1],
+        -- Default game: random
+        game = types.games[#types.games],
     }
 
     window.buffer:clear()
