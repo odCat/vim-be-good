@@ -24,7 +24,7 @@ local instructions = {
 
 SurroundRound = {}
 function SurroundRound:new(difficulty, window)
-    log.info("New", difficulty, window)
+    log.info("NewSurround", difficulty, window)
     local round = {
         window = window,
         difficulty = difficulty,
