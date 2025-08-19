@@ -15,6 +15,7 @@ local games = {
     "whackamole",
     -- "snake",
     "surround",
+    "find",
     "random",
 }
 
