@@ -104,7 +104,7 @@ function Find:render()
 
     lines[cursorLine] = table.concat(self.config.words, " ")
 
-    local cursorCol = math.random(0, #lines[5] - 1)
+    local cursorCol = math.random(0, #lines[5] - 1) -- columns start at 0
     local specialCharLocation = string.find(lines[5], "[()[%]{}]") - 1
     while cursorCol >= specialCharLocation - 3 and
           cursorCol <= specialCharLocation + 3 do
