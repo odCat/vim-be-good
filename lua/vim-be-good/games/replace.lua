@@ -100,8 +100,8 @@ function ReplaceRound:checkForWin()
     local trimmed = GameUtils.trimLines(lines)
     local concatenated = table.concat(GameUtils.filterEmptyLines(trimmed), " ")
 
-    log.info("Replace:concateneted ", concatenated)
-    log.info("Replace: expected    ", self.config.expected)
+    log.info("ReplaceRound:checkForWin", vim.inspect(concatenated))
+
 
     local winner = concatenated == self.config.expected
 
