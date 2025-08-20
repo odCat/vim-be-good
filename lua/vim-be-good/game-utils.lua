@@ -46,6 +46,7 @@ local extraWords = {
     "aar",
     "bar",
     "car",
+    "cor",
     "dar",
     "ear",
     "far",
