@@ -73,6 +73,10 @@ function ReplaceRound:getConfig()
     while firstWord == secondWord do
         secondWord = GameUtils.getRandomWord():upper()
     end
+    if math.random(3) == 3 then
+        firstWord = firstWord .. "." .. firstWord
+        secondWord = secondWord .. "." .. secondWord
+    end
 
     local line1 = genLine(noWords, firstWord)
     local line2 = genLine(noWords, secondWord)
