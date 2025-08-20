@@ -16,6 +16,7 @@ local games = {
     -- "snake",
     "surround",
     "find",
+    "replace",
     "random",
 }
 

@@ -8,6 +8,7 @@ local HjklRound = require("vim-be-good.games.hjkl");
 local WhackAMoleRound = require("vim-be-good.games.whackamole");
 local Surround = require("vim-be-good.games.surround")
 local Find = require("vim-be-good.games.find")
+local Replace = require("vim-be-good.games.replace")
 local Snake = require("vim-be-good.games.snake");
 local log = require("vim-be-good.log");
 local statistics = require("vim-be-good.statistics");
@@ -52,6 +53,10 @@ local games = {
 
     find = function(difficulty, window)
         return Find:new(difficulty, window)
+    end,
+
+    replace = function(difficulty, window)
+        return Replace:new(difficulty, window)
     end,
 
     snake = function(difficulty, window)
