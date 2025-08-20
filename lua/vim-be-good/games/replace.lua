@@ -43,17 +43,22 @@ end
 function ReplaceRound:getConfig()
     log.info("getConfig", self.difficulty, GameUtils.difficultyToTime[self.difficulty])
 
-    local noWords = 6
     local function genLine(wordCount, specialWord)
         local position = math.random(wordCount-1)
-        local line = GameUtils.getRandomWord()
+        local staticWord = GameUtils.getRandomWord()
+        while staticWord == specialWord do
+            staticWord = GameUtils.getRandomWord()
+        end
+        local line = staticWord
+
         local function inner(wordPos)
+
             for word = 1, wordCount-1 do
 
                 if word == wordPos then
                     line = line .. " " .. specialWord
                 else
-                    line = line .. " " .. GameUtils.getRandomWord()
+                    line = line .. " " .. staticWord
                 end
 
             end
@@ -64,8 +69,11 @@ function ReplaceRound:getConfig()
         return inner(position)
     end
 
-    local line1 = genLine(noWords, "COPY")
-    local line2 = genLine(noWords, "REPLACE")
+    local noWords = 6
+    local firstWord = GameUtils.getRandomWord():upper()
+    local secondWord = GameUtils.getRandomWord():upper()
+    local line1 = genLine(noWords, firstWord)
+    local line2 = genLine(noWords, secondWord)
 
     local lines = {}
     table.insert(lines, line1)
@@ -74,7 +82,7 @@ function ReplaceRound:getConfig()
     self.config = {
         roundTime = GameUtils.difficultyToTime[self.difficulty],
         lines = lines,
-        expected = string.gsub(table.concat(lines, " "), "REPLACE", "COPY"),
+        expected = string.gsub(table.concat(lines, " "), secondWord, firstWord),
     }
 
     return self.config
