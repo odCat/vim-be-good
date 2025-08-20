@@ -3,7 +3,7 @@ local log = require("vim-be-good.log")
 local gameLineCount = 5
 
 local instructions = {
-    "Replace the word with copy",
+    "Replace the second word in uppercase with the first",
     "",
     "e.g.",
     "",
