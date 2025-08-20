@@ -72,6 +72,10 @@ function ReplaceRound:getConfig()
     local noWords = 6
     local firstWord = GameUtils.getRandomWord():upper()
     local secondWord = GameUtils.getRandomWord():upper()
+    while firstWord == secondWord do
+        secondWord = GameUtils.getRandomWord()
+    end
+
     local line1 = genLine(noWords, firstWord)
     local line2 = genLine(noWords, secondWord)
 
