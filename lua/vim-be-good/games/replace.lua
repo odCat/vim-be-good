@@ -102,7 +102,6 @@ function ReplaceRound:checkForWin()
 
     log.info("ReplaceRound:checkForWin", vim.inspect(concatenated))
 
-
     local winner = concatenated == self.config.expected
 
     if winner then
