@@ -44,23 +44,21 @@ function ReplaceRound:getConfig()
     log.info("getConfig", self.difficulty, GameUtils.difficultyToTime[self.difficulty])
 
     local function genLine(wordCount, specialWord)
-        local position = math.random(wordCount-1)
+        local position = math.random(wordCount)
         local staticWord = GameUtils.getRandomWord()
         while staticWord == specialWord do
             staticWord = GameUtils.getRandomWord()
         end
-        local line = staticWord
+        local line = position == 1 and specialWord or staticWord
 
         local function inner(wordPos)
 
-            for word = 1, wordCount-1 do
-
+            for word = 2, wordCount do
                 if word == wordPos then
                     line = line .. " " .. specialWord
                 else
                     line = line .. " " .. staticWord
                 end
-
             end
 
             return line
