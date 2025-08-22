@@ -3,13 +3,15 @@ local log = require("vim-be-good.log")
 local gameLineCount = 5
 
 local instructions = {
-    "Replace the second word in uppercase with the first",
+    "Replace the second word in uppercase with the first or switch the words",
     "",
     "e.g.",
     "",
-    "car car BAR car           car car BAR car",
-    "                     ->",
+    "car car BAR car     ->    car car BAR car",
     "cor FAR cor cor           cor BAR cor cor",
+    "",
+    "car car BAR car     ->    car car SWI car",
+    "cor SWI cor cor           cor BAR cor cor",
     "",
     "----------------------------------------------------------------------",
     "",
@@ -68,7 +70,13 @@ function ReplaceRound:getConfig()
     end
 
     local noWords = 6
-    local firstWord = GameUtils.getRandomWord():upper()
+    local switch = "SWI"
+    local firstWord
+    if math.random(4) == 4 then
+        firstWord = switch
+    else
+        firstWord = GameUtils.getRandomWord():upper()
+    end
     local secondWord = GameUtils.getRandomWord():upper()
     while firstWord == secondWord do
         secondWord = GameUtils.getRandomWord():upper()
@@ -85,10 +93,21 @@ function ReplaceRound:getConfig()
     table.insert(lines, line1)
     table.insert(lines, line2)
 
+    local expected
+    if string.find(firstWord, switch) then
+        expected = string.gsub(table.concat(lines, " "), secondWord, firstWord)
+        expected = string.gsub(expected, firstWord, secondWord, 1)
+    else
+        expected = string.gsub(table.concat(lines, " "), secondWord, firstWord)
+    end
+
+    log.info("Config:Replace " .. table.concat(lines))
+    log.info("Config:Replace " .. expected)
+
     self.config = {
         roundTime = GameUtils.difficultyToTime[self.difficulty],
         lines = lines,
-        expected = string.gsub(table.concat(lines, " "), secondWord, firstWord),
+        expected = expected,
     }
 
     return self.config
@@ -101,6 +120,7 @@ function ReplaceRound:checkForWin()
     local concatenated = table.concat(GameUtils.filterEmptyLines(trimmed), " ")
 
     log.info("ReplaceRound:checkForWin", vim.inspect(concatenated))
+    log.info("ReplaceRound:expected   ", self.config.expected)
 
     local winner = concatenated == self.config.expected
 
