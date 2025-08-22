@@ -17,6 +17,8 @@ local instructions = {
     "",
     "tar bar [SURROUND] car   ->   tar bar {SURROUND} car",
     "",
+    "tar bar <cor> car   ->   tar bar cor car",
+    "",
     "----------------------------------------------------------------------",
     "",
 }
@@ -51,9 +53,11 @@ function SurroundRound:getConfig()
     self.config = {}
 
     local function selectMode()
-        local rand = math.random(7)
-        if rand == 1 or rand == 2 or rand ==3 then
+        local rand = math.random(8)
+        if rand == 1 or rand == 2 then
             self.config.quote = true
+        elseif rand == 3 then
+            self.config.delete = true
         elseif rand == 4 then
             self.config.quote2apostrophe = true
         elseif rand == 5 then
@@ -62,6 +66,8 @@ function SurroundRound:getConfig()
             self.config.parenthesis2square = true
         elseif rand == 7 then
             self.config.square2braces = true
+        elseif rand == 8 then
+            self.config.delete = true
         end
     end
 
@@ -96,6 +102,12 @@ function SurroundRound:getConfig()
         table.insert(words, surroundPosition, "[SURROUND]")
         expected = table.concat(words, " ")
         expected = string.gsub(expected, "%[SURROUND%]", "{SURROUND}")
+    elseif self.config.delete then
+        local randWord = "<" .. GameUtils.getRandomWord() .. ">"
+        table.insert(words, surroundPosition, randWord)
+        expected = table.concat(words, " ")
+        expected = string.gsub(expected, "<", "")
+        expected = string.gsub(expected, ">", "")
     end
 
     self.config.roundTime = GameUtils.difficultyToTime[self.difficulty]
